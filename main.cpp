@@ -13,17 +13,19 @@ int main()
     std::srand(std::time(nullptr));
 
     int banknotes [] = {5000, 2000, 1000, 500, 200, 100};
-    int count_5th = 0, count_2th = 0, count_1th = 0, count_5h = 0, count_2h = 0, count_1h = 0, sum = 0;
     int in_stock [1000] {};
     char operation = '+';
 
     while (operation == '+' || operation == '-')
     {
+        int count_5th = 0, count_2th = 0, count_1th = 0, count_5h = 0, count_2h = 0, count_1h = 0, sum = 0;
+
         std::ifstream inData_ATM("..\\bank.bin", std::ios::binary);
+
+        inData_ATM.read ((char*) in_stock, sizeof(in_stock));
 
         for (int i = 0; i < 1000; ++i)
         {
-            inData_ATM >> in_stock[i];
 
             if (in_stock[i] == 5000) ++count_5th;
             if (in_stock[i] == 2000) ++count_2th;
@@ -31,9 +33,10 @@ int main()
             if (in_stock[i] == 500) ++count_5h;
             if (in_stock[i] == 200) ++count_2h;
             if (in_stock[i] == 100) ++count_1h;
+
+            sum += in_stock[i];
         }
 
-        inData_ATM >> sum;
         inData_ATM.close();
 
         if (sum == 0)
@@ -74,14 +77,7 @@ int main()
 
             qsort(in_stock, 1000, sizeof(int), comp);
 
-            sum = 0;
-            
-            for (int i = 0; i < 1000; ++i) {
-                sum += in_stock[i];
-                data_ATM << in_stock[i] << std::endl;
-            }
-
-            data_ATM << sum << std::endl;
+            data_ATM.write((char*) in_stock, sizeof(in_stock));
 
             data_ATM.close();
         }
@@ -102,7 +98,8 @@ int main()
                 break;
             }
 
-            else {
+            else
+            {
                 int count = 0;
                 while (cash > 0) {
                     if (in_stock[count] == 5000 && cash >= 5000) {
@@ -143,14 +140,7 @@ int main()
 
                 qsort(in_stock, 1000, sizeof(int), comp);
 
-                sum = 0;
-
-                for (int i = 0; i < 1000; ++i) {
-                    sum += in_stock[i];
-                    data_ATM << in_stock[i] << std::endl;
-                }
-
-                data_ATM << sum << std::endl;
+                data_ATM.write((char*) in_stock, sizeof(in_stock));
 
                 data_ATM.close();
             }
