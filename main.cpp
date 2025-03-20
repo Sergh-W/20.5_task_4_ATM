@@ -132,8 +132,6 @@ int main()
 
             if (!checkAmount(cash, sum)) break;
 
-            sum -= cash;
-
             for (int count = 0; cash != 0; ++count) {
                 if (in_stock[count] == 5000 && cash >= 5000) {
                     in_stock[count] = 0;
@@ -167,8 +165,6 @@ int main()
             qsort(in_stock, 1000, sizeof(int), comp);
             data_ATM.write((char *) in_stock, sizeof(in_stock));
             data_ATM.close();
-
-            if (sum == 0) break;
         }
     }
     return 0;
