@@ -42,8 +42,8 @@ int main()
     std::srand(std::time(nullptr));
 
     int banknotes [] = {5000, 2000, 1000, 500, 200, 100};
-    int in_stock [1000] {};
     char operation = '+';
+    int in_stock [1000] {};
 
     while (operation == '+' || operation == '-')
     {
@@ -66,7 +66,6 @@ int main()
                 if (in_stock[i] == 500) ++count_5h;
                 if (in_stock[i] == 200) ++count_2h;
                 if (in_stock[i] == 100) ++count_1h;
-
                 sum += in_stock[i];
             }
             inData_ATM.close();
